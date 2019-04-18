@@ -1,0 +1,20 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": ["defaults", "> 1%", "last 2 versions", "not ie <= 8", "ios > 7"]
+        },
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "comments": false,
+  "plugins": [
+  	"@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-class-properties"
+  ]
+}
