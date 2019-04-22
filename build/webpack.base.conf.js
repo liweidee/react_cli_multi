@@ -45,7 +45,7 @@ let baseConfig = {
     entry: config.entriesPage,
     // 模块引用配置
     resolve: {
-        extensions: ['.js', '.vue', '.json'], // 定义模块查找的后缀
+        extensions: ['.js', '.jsx', '.vue', '.json'], // 定义模块查找的后缀
         modules: [
             'node_modules',
             config.resolvePath('lib')
@@ -94,24 +94,7 @@ let baseConfig = {
             }
         }),
         new ProgressBarPlugin()
-    ],
-    // webpack4.x移除了commonChunksPulgin插件，放在了config.optimization里面
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    chunks: 'initial',
-                    minChunks: 2,
-                    maxInitialRequests: 5,
-                    minSize: 0,
-                    name: 'vendor'
-                }
-            }
-        },
-        runtimeChunk: {
-            name: 'manifest'
-        }
-    }
+    ]
 };
 
 //自动生成html模板

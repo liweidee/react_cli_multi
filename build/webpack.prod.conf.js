@@ -19,6 +19,7 @@ const webpackConfigProd = {
         filename: '[name].[chunkhash:7].js',
         publicPath: ''
     },
+    // webpack4.x移除了commonChunksPulgin插件，放在了config.optimization里面
     optimization: {
         minimizer: [
             // new ParallelUglifyPlugin({ // 多进程压缩
@@ -55,7 +56,21 @@ const webpackConfigProd = {
                     autoprefixer: false
                 }
             })
-        ]
+        ],
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    chunks: 'initial',
+                    minChunks: 2,
+                    maxInitialRequests: 5,
+                    minSize: 0,
+                    name: 'vendor'
+                }
+            }
+        },
+        runtimeChunk: {
+            name: 'manifest'
+        }
     },
     plugins: [
         // 删除dist目录

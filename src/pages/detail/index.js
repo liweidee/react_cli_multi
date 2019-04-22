@@ -4,14 +4,16 @@ import ReactDOM from 'react-dom';
 import 'src/commons/styles/base.scss';
 import './index.scss';
 import $ from 'jquery';
+import Clock from './components/clock';
 
 console.log($.ajax);
 
-/* eslint-disable */
 class App extends React.Component {
     render () {
         return (
-            <div>Hello world</div>
+            <div>
+                <Clock />
+            </div>
         );
     }
 }
