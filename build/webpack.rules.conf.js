@@ -17,7 +17,7 @@ const rules = [{
     }, {
         test: /\.(css|scss|sass)$/,
         use: process.env.NODE_ENV === 'development' ? [
-            'vue-style-loader',
+            'style-loader',
             'css-loader',
             'postcss-loader',
             'sass-loader',
@@ -25,7 +25,7 @@ const rules = [{
     }, {
         test: /\.less$/,
         use: process.env.NODE_ENV === 'development' ? [
-            'vue-style-loader',
+            'style-loader',
             'css-loader',
             'less-loader'
             ] : [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']

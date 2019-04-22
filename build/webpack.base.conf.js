@@ -1,4 +1,6 @@
 const webpack = require('webpack');
+const path = require('path');
+const fs = require('fs');
 
 const htmlWebpackPlugin = require('html-webpack-plugin'); // html模板
 const copyWebpackPlugin = require('copy-webpack-plugin'); // 静态资源输出
@@ -7,13 +9,16 @@ const rules = require('./webpack.rules.conf.js');
 const createHappyPlugin = require('../config/happypack');
 const config = require('../config/config');
 
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
+const files = fs.readdirSync(path.resolve(__dirname, '../dll'));
+
 // 设置html-webpack-plugin参数相关方法
 let getHtmlConfig = (name, dirname, chunks) => {
     return {
         // title: title,
         filename: `${dirname}/${name}.html`,
         template: `src/pages/${dirname}/${name}.ejs`,
-        inject: false,
+        inject: true,
         // favicon: './favicon.ico',
         hash: false,
         meta: {
@@ -112,6 +117,20 @@ let baseConfig = {
 //自动生成html模板
 config.htmlPages.forEach(function(element) {
     baseConfig.plugins.push(new htmlWebpackPlugin(getHtmlConfig(element.filename, element.filedir, element.chunks)));
+});
+
+files.forEach(file => {
+    if(/.*\.dll.js/.test(file)) {
+        baseConfig.plugins.push(new AddAssetHtmlWebpackPlugin({ // 将打包好的dll文件挂载到html中
+            filepath: path.resolve(__dirname, '../dll', file),
+            publicPath: '../'
+        }));
+    }
+    if(/.*\.manifest.json/.test(file)) {
+        baseConfig.plugins.push(new webpack.DllReferencePlugin({ // 分析第三方模块是否已经在dll文件里，如果里面有就不用再node_modules在分析打包了
+            manifest: path.resolve(__dirname, '../dll', file)
+        }));
+    }
 });
 
 module.exports = baseConfig;

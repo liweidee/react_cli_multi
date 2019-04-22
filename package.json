@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.conf.js",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.conf.js",
+    "build:dll": "cross-env NODE_ENV=production webpack --config build/webpack.dll.js",
     "server": "live-server ./ --port=8888",
     "lint": "eslint --ext .js,.vue src/",
     "lint-fix": "eslint --fix --ext .js,.vue src/"
@@ -68,6 +69,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",
+    "add-asset-html-webpack-plugin": "^3.1.3",
     "axios": "^0.18.0",
     "core-js": "^3.0.0",
     "jquery": "^3.3.1",
