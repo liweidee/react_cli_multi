@@ -24,7 +24,7 @@ const webpackConfigProd = {
     // webpack4.x移除了commonChunksPulgin插件，放在了config.optimization里面
     optimization: {
         namedChunks: true, // webpack4.x之前通过NamedChunksPlugin插件，使用chunkName来替换chunkId，实现固化chunkId，保持缓存的能力
-        moduleIds: 'hashed', // webpack4.x之前通过HashedModuleIdsPlugin插件将模块路径映射成hash值替代moduleId，模块路径基本不变故而hash值也基本不变
+        moduleIds: 'hashed', // webpack4.x之前通过HashedModuleIdsPlugin插件，将模块路径映射成hash值替代moduleId，模块路径基本不变故而hash值也基本不变
         minimizer: [
             // new ParallelUglifyPlugin({ // 多进程压缩
             //     cacheDir: '.cache/',

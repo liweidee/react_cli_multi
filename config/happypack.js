@@ -6,7 +6,7 @@ const createHappyPlugin = (id, loaders) => new HappyPack({
     id: id,
     loaders: loaders,
     threadPool: happyThreadPool,
-    verbose: process.env.HAPPY_VERBOSE === '1'
+    verbose: false
 });
 
 module.exports = createHappyPlugin;
