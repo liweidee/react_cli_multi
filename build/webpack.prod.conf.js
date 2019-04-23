@@ -11,6 +11,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const webpackConfigBase = require('./webpack.base.conf');
 
+const pages = Object.keys(require('../config/config').entriesPage);
+
 const webpackConfigProd = {
     mode: 'production', // 通过 mode 声明生产环境
     output: {
@@ -21,6 +23,8 @@ const webpackConfigProd = {
     },
     // webpack4.x移除了commonChunksPulgin插件，放在了config.optimization里面
     optimization: {
+        namedChunks: true, // webpack4.x之前通过NamedChunksPlugin插件，使用chunkName来替换chunkId，实现固化chunkId，保持缓存的能力
+        moduleIds: 'hashed', // webpack4.x之前通过HashedModuleIdsPlugin插件将模块路径映射成hash值替代moduleId，模块路径基本不变故而hash值也基本不变
         minimizer: [
             // new ParallelUglifyPlugin({ // 多进程压缩
             //     cacheDir: '.cache/',
@@ -58,13 +62,16 @@ const webpackConfigProd = {
             })
         ],
         splitChunks: {
+            maxInitialRequests: 5, // default 3
             cacheGroups: {
+                // cacheGroups 会继承和覆盖splitChunks的配置项，但是test、priorty和reuseExistingChunk只能用于配置缓存组
                 vendor: {
-                    chunks: 'initial',
-                    minChunks: 2,
-                    maxInitialRequests: 5,
+                    chunks: 'all', // default async（异步块）建议配置该选项，省略可能出问题
+                    name: 'vendor',
                     minSize: 0,
-                    name: 'vendor'
+                    minChunks: Math.ceil(pages.length / 3),
+                    // maxInitialRequests: 5,
+                    reuseExistingChunk: true // 设置是否重用该chunk
                 }
             }
         },

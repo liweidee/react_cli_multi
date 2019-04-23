@@ -47,7 +47,7 @@ const htmlPages = (entriesPage => {
         let htmlPlugin = {
             filename: entry.split('/')[1],
             filedir: entry.split('/')[0],
-            chunks: [entry, 'manifest', 'vendor']
+            chunks: ['manifest', 'vendor', entry]
         };
         resultFiles.push(htmlPlugin);
     });
