@@ -6,6 +6,7 @@
         "targets": {
           "browsers": ["defaults", "> 1%", "last 2 versions", "not ie <= 8", "ios > 7"]
         },
+        "modules": false,
         "useBuiltIns": "usage",
         "corejs": 3
       }
@@ -14,7 +15,13 @@
   ],
   "comments": false,
   "plugins": [
-  	"@babel/plugin-transform-runtime",
+  	[
+      "@babel/plugin-transform-runtime", 
+      {
+        "regenerator": false,
+        "useESModules": true
+      }
+    ],
     "@babel/plugin-proposal-class-properties"
   ]
 }
