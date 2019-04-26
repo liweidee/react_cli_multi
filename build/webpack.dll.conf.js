@@ -3,6 +3,13 @@ const webpack = require('webpack');
 
 module.exports = {
     mode: 'production',
+    stats: {
+        colors: true,
+        chunks: false,
+        children: false,
+        entrypoints: false,
+        modules: false
+    },
     entry: {
         react: ['react', 'react-dom'],
         jquery: ['jquery']
