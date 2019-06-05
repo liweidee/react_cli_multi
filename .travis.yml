@@ -25,13 +25,16 @@ script:
 after_script:
   - cd ../
   - git clone https://github.com/liweidee/liwei.github.io.git
+  - git remote -v
+  - git remote remove origin
+  - git remote add origin https://github.com/liweidee/liwei.github.io.git
   - cp -R ./react_cli_multi/dist/ ./liwei.github.io/
   - cd ./liwei.github.io/
   - git add .
   - git commit -m "CI Update"
   - git config --list
   - git pull
-  - git push origin master
+  - git push -u origin master
   - cd ../
   - rm -rf ./liwei.github.io
 
