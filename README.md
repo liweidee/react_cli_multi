@@ -1,6 +1,6 @@
 ## webpack4.x + react多页面
 
-webpack4.x + react 多入口，多页面项目构建案例
+webpack4.x + react 多入口，多页面项目构建案例 
 
 **目录说明**
 
