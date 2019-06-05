@@ -22,11 +22,6 @@ before_script:
 script:
   - npm run build
 
-deploy:
-  type: git
-  repository: https://github.com/liweidee/liwei.github.io.git
-  branch: master
-
 after_script:
   - cd ../
   - git clone https://github.com/liweidee/liwei.github.io.git
@@ -34,8 +29,9 @@ after_script:
   - cd ./liwei.github.io/
   - git add .
   - git commit -m "CI Update"
+  - git config --list
   - git pull
-  - git push --force origin master
+  - git push origin master
   - cd ../
   - rm -rf ./liwei.github.io
 
