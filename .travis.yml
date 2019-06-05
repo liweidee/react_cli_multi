@@ -20,13 +20,24 @@ script:
   - npm run build
 
 after_script:
-  - cd ./dist
-  - git init
-  - git config user.name "${U_NAME}"
-  - git config user.email "${U_EMAIL}"
+  #- cd ./dist
+  #- git init
+  #- git remote add origin https://github.com/liweidee/liwei.github.io.git
+  #- git config user.name "${U_NAME}"
+  #- git config user.email "${U_EMAIL}"
+  #- git add .
+  #- git commit -m "Update CI"
+  #- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
+
+  - cd ../
+  - git clone git@github.com:liweidee/liwei.github.io.git
+  - cp -R ./react_cli_multi/dist/ ./liwei/
+  - cd ./liwei/
   - git add .
-  - git commit -m "Update CI"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
+  - git commit -m "CI Update"
+  - git push origin master
+  - cd ../
+  - rm -rf ./liwei
 # E: Build Lifecycle
 
 # 指定分支
