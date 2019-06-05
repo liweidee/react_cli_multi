@@ -1,40 +1,29 @@
 language: node_js
-# nodejs版本
+
 node_js:
   - '10'
 
-# Travis-CI Caching
 cache:
-  -directories:
+  "-directories":
     - node_modules
 
-# S: Build Lifecycle
 install:
   - npm install
 
 before_script:
-  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCXbJfHryTaQvBUWdaff8mz8Z1H+l623KZTG9MbichTndgG3fKeu3hAYOazrn83RKnusMOzDUjN7o358TM9j0H7L4aNEzFMa0WsIQFUPl13HglTRkIU9EAB05ZxQaAMgoE49f3oKMlpbr2q9niFW0e4YR9m0sldlyNebDAytr66icAj18hTtvavWYS2u2rMl55ver3Do/zVbppayjATVMLGbD1VSNhx62h1BckYy6gwz6KM4K++8v9N/RpqVRWqkI541elCmDa94eHN6is9MEN3GK6I24XOPSP9bTkXJLStHGt7lt8rB91CK2qmKoqsZnqwVJrHjAWgUxv48IafqXj7 1642745510@qq.com
-  - chmod 600 ~/.ssh/id_rsa
+  - openssl aes-256-cbc -K $encrypted_be6814600c10_key -iv $encrypted_be6814600c10_iv
+  - in id_rsa.pub.enc -out ~/.ssh/id_rsa.pub -d
+  - chmod 600 ~/.ssh/id_rsa.pub
   - eval $(ssh-agent)
   - cp .travis/ssh_config ~/.ssh/config
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
   - npm run build:dll
 
-# 发布构建
 script:
   - npm run build
 
 after_script:
-  #- cd ./dist
-  #- git init
-  #- git remote add origin https://github.com/liweidee/liwei.github.io.git
-  #- git config user.name "${U_NAME}"
-  #- git config user.email "${U_EMAIL}"
-  #- git add .
-  #- git commit -m "Update CI"
-  #- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
-
   - cd ../
   - git clone https://github.com/liweidee/liwei.github.io.git
   - cp -R ./react_cli_multi/dist/ ./liwei.github.io/
@@ -44,13 +33,10 @@ after_script:
   - git push origin master
   - cd ../
   - rm -rf ./liwei.github.io
-# E: Build Lifecycle
 
-# 指定分支
 branches:
   only:
-    - develop
+  - develop
 
 env:
-  global:
-    
+  global: 
