@@ -20,7 +20,7 @@ before_script:
   - npm run build:dll
 
 script:
-  - npm run buildls
+  - npm run build
 
 after_script:
   - cd ../
