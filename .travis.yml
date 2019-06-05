@@ -1,14 +1,12 @@
 language: node_js
-
 node_js:
-  - '10'
-
+- '10'
 cache:
   "-directories":
     - node_modules
 
 install:
-- npm install
+  - npm install
 
 before_script:
   - openssl aes-256-cbc -K $encrypted_be6814600c10_key -iv $encrypted_be6814600c10_iv
@@ -17,12 +15,12 @@ before_script:
   - eval $(ssh-agent)
   - ssh-add ~/.ssh/id_rsa
   - cp ssh_config ~/.ssh/config
-  - git config user.name "${U_NAME}"
-  - git config user.email "${U_EMAIL}"
+  - git config --global user.name "${U_NAME}"
+  - git config --global user.email "${U_EMAIL}"
   - npm run build:dll
 
 script:
-  - npm run build
+  - npm run buildls
 
 after_script:
   - cd ../
@@ -31,6 +29,7 @@ after_script:
   - cd ./liwei.github.io/
   - git add .
   - git commit -m "CI Update"
+  - git pull
   - git push -u origin master
   - cd ../
   - rm -rf ./liwei.github.io
@@ -41,4 +40,5 @@ branches:
 
 env:
   global: 
+
 
