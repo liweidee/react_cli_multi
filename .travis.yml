@@ -30,7 +30,7 @@ after_script:
   - git add .
   - git commit -m "CI Update"
   - git pull
-  - git push -u origin master
+  - git push --force origin master
   - cd ../
   - rm -rf ./liwei.github.io
 
