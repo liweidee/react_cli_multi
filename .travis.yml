@@ -12,7 +12,7 @@ install:
 
 before_script:
 - openssl aes-256-cbc -K $encrypted_be6814600c10_key -iv $encrypted_be6814600c10_iv
-  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+  -in id_rsa.enc -out ./id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 - eval $(ssh-agent)
 - ssh-add ~/.ssh/id_rsa
@@ -41,3 +41,4 @@ branches:
 
 env:
   global: 
+
