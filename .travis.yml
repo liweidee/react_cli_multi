@@ -15,7 +15,8 @@ before_script:
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 - eval $(ssh-agent)
-- cp .travis/ssh_config ~/.ssh/config
+- ssh-add ~/.ssh/id_rsa
+- cp ssh_config ~/.ssh/config
 - git config user.name "${U_NAME}"
 - git config user.email "${U_EMAIL}"
 - npm run build:dll
