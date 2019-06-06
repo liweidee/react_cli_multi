@@ -15,8 +15,6 @@ before_script:
   - eval $(ssh-agent)
   - ssh-add ~/.ssh/id_rsa
   - cp ssh_config ~/.ssh/config
-  - git config --global user.name "${U_NAME}"
-  - git config --global user.email "${U_EMAIL}"
   - npm run build:dll
 
 script:
@@ -24,9 +22,12 @@ script:
 
 after_script:
   - cd ../
-  - git clone https://github.com/liweidee/liwei.github.io.git
-  - cp -R ./react_cli_multi/dist/ ./liwei.github.io/
-  - cd ./liwei.github.io/
+  - git clone https://${GH_REF} gh_web_git
+  - cd gh_web_git
+  - git checkout master
+  - cp -R ../react_cli_multi/dist/ ./gh_web_git/
+  - git config user.name "${U_NAME}"
+  - git config user.email "${U_EMAIL}"
   - git add .
   - git commit -m "CI Update"
   - git config --list
@@ -40,7 +41,8 @@ branches:
     - develop
 
 env:
-  global: 
-
+  global:
+    - U_NAME: liwei
+    - P_BRANCH: master
 
 
