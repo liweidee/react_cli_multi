@@ -8,13 +8,13 @@ install:
 - npm install
 
 before_script:
-- openssl aes-256-cbc -K $encrypted_be6814600c10_key -iv $encrypted_be6814600c10_iv
-  -in id_rsa.enc -out ~/.ssh/id_rsa -d
-- chmod 600 ~/.ssh/id_rsa
-- eval $(ssh-agent)
-- ssh-add ~/.ssh/id_rsa
-- cp ssh_config ~/.ssh/config
-- npm run build:dll
+  - openssl aes-256-cbc -K $encrypted_be6814600c10_key -iv $encrypted_be6814600c10_iv
+    -in id_rsa.enc -out ~/.ssh/id_rsa -d
+  - chmod 600 ~/.ssh/id_rsa
+  - eval $(ssh-agent)
+  - ssh-add ~/.ssh/id_rsa
+  - cp ssh_config ~/.ssh/config
+  - npm run build:dll
 
 addons:
 ssh_known_hosts: 47.240.11.137
@@ -23,26 +23,28 @@ script:
 - npm run build
 
 after_script:
-- ls ./dist/
-#- git clone https://${GH_REF} gh_web_git
-#- cd gh_web_git
-#- git checkout master
-#- cp -R ../react_cli_multi/dist/ ./gh_web_git/
-#- git config user.name "${U_NAME}"
-#- git config user.email "${U_EMAIL}"
-#- git add .
-#- git commit -m "CI Update"
-#- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
-#- cd ../
-#- rm -rf ./liwei.github.io
+  #- ls ./dist/
+  #- git clone https://${GH_REF} gh_web_git
+  #- cd gh_web_git
+  #- git checkout master
+  #- cp -R ../react_cli_multi/dist/ ./gh_web_git/
+  #- git config user.name "${U_NAME}"
+  #- git config user.email "${U_EMAIL}"
+  #- git add .
+  #- git commit -m "CI Update"
+  #- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
+  #- cd ../
+  #- rm -rf ./liwei.github.io
 
 after_success:
-- rsync -rv ./dist/ root@39.107.226.67:/home/ftpuser/
+  - ls ./dist/
+  - rsync --version
+  - rsync -av ./dist/ root@39.107.226.67:/home/ftpuser/
 
 branches:
   only:
-  - develop
+    - develop
 
 env:
   global:
-  - U_NAME: liwei
+    - U_NAME: liwei
