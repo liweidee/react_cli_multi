@@ -12,6 +12,7 @@ before_script:
     -in id_rsa.enc -out ~/.ssh/id_rsa -d
   - chmod 600 ~/.ssh/id_rsa
   - echo -e "Host 47.240.11.137\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - ls ~/.ssh/
   - cat ~/.ssh/config
   - npm run build:dll
 
