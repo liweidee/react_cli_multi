@@ -12,16 +12,24 @@ before_script:
     -in id_rsa.enc -out ~/.ssh/id_rsa -d
   - chmod 600 ~/.ssh/id_rsa
   - echo -e "Host 47.240.11.137\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - cat ~/.ssh/config
   - npm run build:dll
 
-addons:
-ssh_known_hosts: 47.240.11.137
+#addons:
+#ssh_known_hosts: 47.240.11.137
 
 script:
 - npm run build
 
+after_success:
+  - scp --version
+  - scp -o stricthostkeychecking=no -r ./dist/ root@39.107.226.67:/home/ftpuser/
+  # - cat /etc/ssh/sshd_config
+  # - rsync --version
+  # - rsync -av ./dist/ root@39.107.226.67:/home/ftpuser/
+
 after_script:
-  - ls ./dist/
+  #- ls ./dist/
   #- git clone https://${GH_REF} gh_web_git
   #- cd gh_web_git
   #- git checkout master
@@ -33,13 +41,6 @@ after_script:
   #- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
   #- cd ../
   #- rm -rf ./liwei.github.io
-
-after_success:
-  - scp --version
-  - scp -o stricthostkeychecking=no -r ./dist/ root@39.107.226.67:/home/ftpuser/
-  # - cat /etc/ssh/sshd_config
-  # - rsync --version
-  # - rsync -av ./dist/ root@39.107.226.67:/home/ftpuser/
 
 branches:
   only:
