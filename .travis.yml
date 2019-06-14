@@ -23,8 +23,8 @@ script:
 - npm run build
 
 after_success:
-  - scp --version
-  - scp -o stricthostkeychecking=no -r ./dist/ root@39.107.226.67:/home/ftpuser/
+  - rsync --version
+  - rsync -o 'stricthostkeychecking=no' -r ./dist/ root@39.107.226.67:/home/ftpuser/
   # - cat /etc/ssh/sshd_config
   # - rsync --version
   # - rsync -av ./dist/ root@39.107.226.67:/home/ftpuser/
