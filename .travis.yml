@@ -34,7 +34,7 @@ after_success:
   - echo "@liwei521521" > rsync.pass
   - cat rsync.pass
   - chmod 600 rsync.pass
-  - rsync -az --delete 'ssh -o stricthostkeychecking=no' root@47.240.11.137:dist/ /home/ftpuser/
+  - rsync -azvPe --delete 'ssh -o stricthostkeychecking=no' root@47.240.11.137:dist/ /home/ftpuser/
   # - rsync -az --delete --password-file=rsync.pass root@47.240.11.137:dist/ /home/ftpuser/
   # - cat /etc/ssh/sshd_config
   # - rsync --version
