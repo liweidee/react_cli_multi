@@ -4,6 +4,11 @@ node_js:
 cache:
   "-directories":
   - node_modules
+
+env:
+  global:
+    - U_NAME: liwei
+
 install:
 - npm install
 
@@ -16,15 +21,17 @@ before_script:
   - cat ~/.ssh/config
   - npm run build:dll
 
-#addons:
-#ssh_known_hosts: 47.240.11.137
+addons:
+  ssh_known_hosts: 47.240.11.137
 
 script:
 - npm run build
 
 after_success:
-  - rsync --version
-  - rsync -o 'stricthostkeychecking=no' -r ./dist/ root@39.107.226.67:/home/ftpuser/
+  - pwd
+  - scp -o StrictHostKeyChecking=no -r ./dist/ root@39.107.226.67:/home/ftpuser/
+  # - rsync --version
+  # - rsync -o 'stricthostkeychecking=no' -r ./dist/ root@39.107.226.67:/home/ftpuser/
   # - cat /etc/ssh/sshd_config
   # - rsync --version
   # - rsync -av ./dist/ root@39.107.226.67:/home/ftpuser/
@@ -46,7 +53,3 @@ after_script:
 branches:
   only:
     - develop
-
-env:
-  global:
-    - U_NAME: liwei
