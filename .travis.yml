@@ -31,8 +31,8 @@ after_success:
   #- pwd
   #- scp -o StrictHostKeyChecking=no -r ./dist/ root@39.107.226.67:/home/ftpuser/
   - rsync --version
-  - rsync -az --delete ./dist/* root@39.107.226.67:/home/ftpuser/
-  - ssh root@39.107.226.67 'cd / && ls'
+  - rsync -az --delete ./dist/* root@47.240.11.137:/home/ftpuser/
+  - ssh root@47.240.11.137 'cd / && ls'
   # - cat /etc/ssh/sshd_config
   # - rsync --version
   # - rsync -av ./dist/ root@39.107.226.67:/home/ftpuser/
