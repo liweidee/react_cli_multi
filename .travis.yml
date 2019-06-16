@@ -37,6 +37,7 @@ after_success:
   - echo "@liwei521521" > /etc/rsync.password
   - chmod 600 /etc/rsync.password
   - cat /etc/rsync.password
+  - systemctl start rsyncd
   - rsync --daemon --config=/etc/rsyncd.conf
   - rsync  -az -P ./dist/ root@47.240.11.137:/home/ftpuser/ --password-file=/etc/rsync.password
 
