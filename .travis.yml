@@ -28,10 +28,11 @@ script:
 - npm run build
 
 after_success:
-  - pwd
-  - scp -o StrictHostKeyChecking=no -r ./dist/ root@39.107.226.67:/home/ftpuser/
-  # - rsync --version
-  # - rsync -o 'stricthostkeychecking=no' -r ./dist/ root@39.107.226.67:/home/ftpuser/
+  #- pwd
+  #- scp -o StrictHostKeyChecking=no -r ./dist/ root@39.107.226.67:/home/ftpuser/
+  - rsync --version
+  - rsync -az --delete ./dist/* root@39.107.226.67:/home/ftpuser/
+  - ssh root@39.107.226.67 'cd / && ls'
   # - cat /etc/ssh/sshd_config
   # - rsync --version
   # - rsync -av ./dist/ root@39.107.226.67:/home/ftpuser/
