@@ -57,4 +57,3 @@ after_script:
 branches:
   only:
     - develop
-    
