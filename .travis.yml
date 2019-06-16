@@ -31,7 +31,13 @@ after_success:
   #- pwd
   #- scp -o StrictHostKeyChecking=no -r ./dist/ root@39.107.226.67:/home/ftpuser/
   - rsync --version
-  - rsync -az --delete ./dist/* root@47.240.11.137:/home/ftpuser/
+  - echo "root:@liwei521521" > /etc/rsyncd.secrets
+  - chmod 600 /etc/rsyncd.secrets
+  - echo "welcome to access" > /etc/rsyncd.motd
+  #- echo "/usr/bin/rsync --daemon" >> /etc/rc.local
+  - echo "@liwei521521" > rsync.pass
+  - chmod 600 rsync.pass
+  - rsync -az --delete --password-file=rsync.pass root@47.240.11.137:dist/ /home/ftpuser/
   - ssh root@47.240.11.137 'cd / && ls'
   # - cat /etc/ssh/sshd_config
   # - rsync --version
