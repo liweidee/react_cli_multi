@@ -29,16 +29,10 @@ script:
 
 after_success:
   - pwd
-  - scp -o StrictHostKeyChecking=no -r ./dist/ root@47.240.11.137:/home/ftpuser/
-  # - rsync --version
-  # - echo "root:@liwei521521" >> /etc/rsyncd.secrets
-  # - chmod 600 /etc/rsyncd.secrets
-  # - cat /etc/rsyncd.secrets
-  # - echo "@liwei521521" >> /etc/rsync.password
-  # - chmod 600 /etc/rsync.password
-  # - cat /etc/rsync.password
-  # - rsync --daemon --config=/etc/rsyncd.conf
-  # - rsync  -az -P ./dist/ root@47.240.11.137:/home/ftpuser/ --password-file=/etc/rsync.password
+  #- scp -o StrictHostKeyChecking=no -r ./dist/ root@47.240.11.137:/home/ftpuser/
+  - rsync --version
+  - echo "root:@liwei521521" >> /etc/rsyncd.secrets
+  - rsync  -arv --delete -P ./dist/ root@47.240.11.137:/home/ftpuser/ 
 
 after_script:
   #- ls ./dist/
@@ -57,4 +51,3 @@ after_script:
 branches:
   only:
     - develop
-
