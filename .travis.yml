@@ -31,14 +31,14 @@ after_success:
   #- pwd
   #- scp -o StrictHostKeyChecking=no -r ./dist/ root@39.107.226.67:/home/ftpuser/
   - rsync --version
-  - echo "@liwei521521" > rsync.password
-  - cat rsync.password
-  - chmod 600 rsync.password
-  - rsync  -az -P ./dist/ root@47.240.11.137:/home/ftpuser/ --password-file=rsync.password
-  # - rsync -az --delete --password-file=rsync.pass root@47.240.11.137:dist/ /home/ftpuser/
-  # - cat /etc/ssh/sshd_config
-  # - rsync --version
-  # - rsync -av ./dist/ root@47.240.11.137:/home/ftpuser/
+  - echo "root:@liwei521521" > /etc/rsyncd.secrets
+  - chmod 600 /etc/rsyncd.secrets
+  - cat /etc/rsyncd.secrets
+  - echo "@liwei521521" > /etc/rsync.password
+  - chmod 600 /etc/rsync.password
+  - cat /etc/rsync.password
+  - rsync --daemon --config=/etc/rsyncd.conf
+  - rsync  -az -P ./dist/ root@47.240.11.137:/home/ftpuser/ --password-file=/etc/rsync.password
 
 after_script:
   #- ls ./dist/
