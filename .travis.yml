@@ -32,7 +32,7 @@ after_success:
   #- scp -o StrictHostKeyChecking=no -r ./dist/ root@47.240.11.137:/home/ftpuser/
   - rsync --version
   - echo "root:@liwei521521" >> /etc/rsyncd.secrets
-  - rsync  -arv --delete -P ./dist/ root@47.240.11.137:/home/ftpuser/ 
+  - rsync  -arv -P ./dist/ root@47.240.11.137:/usr/local/webserver/nginx/html/
 
 after_script:
   #- ls ./dist/
