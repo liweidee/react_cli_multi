@@ -19,7 +19,7 @@ const webpackConfigProd = {
         path: path.resolve(__dirname, '../dist'),
         // 打包多出口文件
         filename: '[name].[chunkhash:7].js',
-        publicPath: ''
+        publicPath: 'http://47.240.11.137/'
     },
     // webpack4.x移除了commonChunksPulgin插件，放在了config.optimization里面
     optimization: {
