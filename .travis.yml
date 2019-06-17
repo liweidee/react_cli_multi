@@ -1,53 +1,56 @@
 language: node_js
 node_js:
-- '10'
+  - '10'
 cache:
   "-directories":
-  - node_modules
+    - node_modules
 
 env:
   global:
-    - U_NAME: liwei
+    #- U_NAME: liwei
+    - secure: "JNJ+TlxqIIShTlQMvGhAPk6WWCw3/MH2F0Ykf+NVbzhL3F2hfCtwWYmDY/wcagvMYQAF85ZXBKwpjxCY3Dg4Y+GtQoVjghnnuyK+wp6QhS0kVpB6c5pAH4l4Vro1JmvxOtv7SolXHmcWccT9bl/XDKoWRzzqcCqWGqEDAbHuPLbsowWNBGNQqXK/OEtMVPh4lfWr9aCLRiV/Ri33jmbt4TbpY2LsPDha9Wqc/Y5xzBKdMqsRj+xCurhnFJdDBz1bbDcq7+/cpscyXhIw0qxs9QQKJDLemPxl8wfvxUeHmwGH6m5wY5popZbtENLf+quILL2aRWifg6A9lWMY0WFtlOuDvzR6s1m1FAfb3mfXSF2cKGQM4O9gX7fv6JbKtNwDetwwxug3zvYufynLIz8/agd3RIQC60f0zTT2jCJnmMETWxxVd8oeX60oTf0/dzNsW8MJYWbUmZnrHGnZ7cABXvP0+ilSUC+b4O9YyXLV7IXLsW531LuGG0RK23DiLnsBAITSWYGNeg+CEjoiXk27EpX+9LAlET8RNywqjBKqyEXPQzwOBAacJ4A6OO3NYXYTaNrET2oB21COvXAn9Os32TztOdwELh7O6y38g1i0ef8ojVZ/L3e1bE2UO8ugxH5sZKn5m/rMOpGrgu/4jVXmohBVa6n6MXAVXe4LliJBM3A="
 
 install:
-- npm install
+  - npm install
 
 before_script:
   - openssl aes-256-cbc -K $encrypted_be6814600c10_key -iv $encrypted_be6814600c10_iv
     -in id_rsa.enc -out ~/.ssh/id_rsa -d
   - chmod 600 ~/.ssh/id_rsa
-  - echo -e "Host 47.240.11.137\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - ls ~/.ssh/
   - cat ~/.ssh/config
   - npm run build:dll
 
-addons:
-  ssh_known_hosts: "47.240.11.137"
-
 script:
-- npm run build
+  - npm run build
 
 after_success:
   - pwd
   #- scp -o StrictHostKeyChecking=no -r ./dist/ root@47.240.11.137:/home/ftpuser/
   - rsync --version
   - echo "root:@liwei521521" >> /etc/rsyncd.secrets
-  - rsync  -arv -P ./dist/ root@47.240.11.137:/usr/local/webserver/nginx/html/
+  - rsync  -avz -P ./dist/ root@47.240.11.137:/usr/local/webserver/nginx/html/
 
 after_script:
-  #- ls ./dist/
-  #- git clone https://${GH_REF} gh_web_git
-  #- cd gh_web_git
-  #- git checkout master
-  #- cp -R ../react_cli_multi/dist/ ./gh_web_git/
-  #- git config user.name "${U_NAME}"
-  #- git config user.email "${U_EMAIL}"
-  #- git add .
-  #- git commit -m "CI Update"
-  #- git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
-  #- cd ../
-  #- rm -rf ./liwei.github.io
+  # - git clone https://${GH_REF} gh_web_git
+  # - cd gh_web_git
+  # - git checkout master
+  # - cp -R ../react_cli_multi/dist/ ./gh_web_git/
+  # - git config user.name "${U_NAME}"
+  # - git config user.email "${U_EMAIL}"
+  # - git add .
+  # - git commit -m "CI Update"
+  # - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
+  - git checkout master
+  - git branch
+  - git pull
+  - git merge --no-ff develop
+  - git commit -m 'ci push'
+  - git push origin
 
 branches:
   only:
     - develop
+
+addons:
+  ssh_known_hosts: 47.240.11.137
