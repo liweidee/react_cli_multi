@@ -41,11 +41,12 @@ after_script:
   # - git add .
   # - git commit -m "CI Update"
   # - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
-  - git fetch
+  - cd ../
+  - git clone https://github.com/liweidee/react_cli_multi.git
+  - git checkout origin/develop
   - git branch -a
   - git checkout origin/master
-  - git branch
-  - git pull
+  - git branch -a
   - git merge --no-ff develop
   - git commit -m 'ci push'
   - git push origin
