@@ -106,7 +106,7 @@ files.forEach(file => {
     if(/.*\.dll.js/.test(file)) {
         baseConfig.plugins.push(new AddAssetHtmlWebpackPlugin({ // 将打包好的dll文件挂载到html中
             filepath: path.resolve(__dirname, '../dll', file),
-            publicPath: 'http://47.240.11.137/'
+            publicPath: '//www.qiuzhi.live/'
         }));
     }
     if(/.*\.manifest.json/.test(file)) {
